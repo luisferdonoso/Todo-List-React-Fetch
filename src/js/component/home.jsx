@@ -5,27 +5,26 @@ import rigoImage from "../../img/rigo-baby.jpg";
 
 //create your first component
 const Home = () => {
-	const [tasks,setTasks]= useState([
-
-	])
+	const [tasks,setTasks]= useState([])
 	const [newTask,setNewTask] = useState("")
+	const api = "https://assets.breatheco.de/apis/fake/todos/user/luisferdonoso"
 	function addTask (e){
 		if(e.code=="Enter" && newTask!=""){
-			setTasks([...tasks,{label: newTask, done: falso}])
+			setTasks([...tasks,{label: newTask, done: false}])
 			setNewTask("")
 		}
 	}
 	useEffect (async() =>{
-		var respuesta =await fetch ("https://assets.breatheco.de/apis/fake/todos/user/luisferdonoso")
+		var respuesta =await fetch (api)
 		if (respuesta.status == 404) {
-			respuesta =await fetch ("https://assets.breatheco.de/apis/fake/todos/user/luisferdonoso",{
+			respuesta =await fetch (api,{
 				method:"POST",
 				body:JSON.stringify([]),
 				headers:{
 					"Content-Type":"application/json"
 				}
 			})
-			respuesta =await fetch ("https://assets.breatheco.de/apis/fake/todos/user/luisferdonoso")
+			respuesta =await fetch (api)
 
 		} else if (!respuesta.ok){
 				console.log("Erros al cargar la lista:" + respuesta.statusText)
